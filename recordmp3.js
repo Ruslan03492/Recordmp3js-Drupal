@@ -2,10 +2,10 @@
  * File recordmp3.js.
  */
 (function (window) {
-  var modulePath = Drupal.settings.quiz_voice_answer.module_path;
+  var libraryPath = 'sites/all/libraries/Recordmp3js-Drupal';
   var basePath = Drupal.settings.basePath;
-  var WORKER_PATH = basePath + modulePath + '/js/recorderWorker.js';
-  var encoderWorker = new Worker(basePath + modulePath + '/js/mp3Worker.js');
+  var WORKER_PATH = basePath + libraryPath + '/js/recorderWorker.js';
+  var encoderWorker = new Worker(basePath + libraryPath + '/js/mp3Worker.js');
   var Recorder = function (source, cfg) {
     var config = cfg || {};
     var bufferLen = config.bufferLen || 4096;
@@ -91,7 +91,7 @@
         arrayBuffer = this.result;
         var buffer = new Uint8Array(arrayBuffer),
           data = parseWav(buffer);
-        log.innerHTML = "\n" + "Loading...";
+        log.innerHTML = "\n" + Drupal.t("Loading...");
         encoderWorker.postMessage(
           {
             cmd: 'init', config: {
@@ -162,10 +162,10 @@
       }
 
       if (readInt(20, 2) != 1) {
-        throw 'Invalid compression code, not PCM';
+        throw Drupal.t('Invalid compression code, not PCM');
       }
       if (readInt(22, 2) != 1) {
-        throw 'Invalid number of channels, not 1';
+        throw Drupal.t('Invalid number of channels, not 1');
       }
       return {
         sampleRate: readInt(24, 4),

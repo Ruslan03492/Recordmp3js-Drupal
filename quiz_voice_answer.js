@@ -13,7 +13,7 @@ if (rec) {
       if (navigator.getUserMedia) {
         navigator.getUserMedia(
           {audio: true}, startUserMedia, function (e) {
-            __log('No live audio input: ' + e);
+            __log(Drupal.t('No live audio input: ') + e);
           }
         );
       }
@@ -33,7 +33,7 @@ function startRecording(button) {
   recorder && recorder.record();
   button.disabled = true;
   button.nextElementSibling.disabled = false;
-  __log('Recording...');
+  __log(Drupal.t('Recording...'));
 }
 
 function stopRecording(button) {
@@ -71,6 +71,6 @@ window.onload = function init() {
     window.URL = window.URL || window.webkitURL;
     audio_context = new AudioContext;
   } catch (e) {
-    alert('No web audio support in this browser!');
+    alert(Drupal.t('No web audio support in this browser!'));
   }
 };
